@@ -1,4 +1,4 @@
-let raw = <{ [key: string]: number }>{
+let raw: { [key: string]: number } = {
     A: 186, B: 64, C: 13, D: 22, E: 32, F: 103, G: 21, H: 15, I: 47, J: 57, K: 1, L: 2, M: 32,
     N: 20, O: 57, P: 63, Q: 15, R: 1, S: 48, T: 51, U: 80, V: 23, W: 8, X: 18, Y: 1, Z: 16
 }
@@ -8,7 +8,7 @@ class Trnode {
 class InitError extends Error { };
 class InputError extends Error { };
 class Huffman {
-    root: Trnode | undefined;
+    root: Trnode;
     constructor(raw: { [key: string]: number }) {
         let forest: Trnode[] = [];
         let keys = Object.keys(raw);
@@ -35,7 +35,7 @@ class Huffman {
             return;
         }
         this._PrintCode(root.left, code + '0');
-        this._PrintCode(<Trnode>root.right, code + '1');
+        this._PrintCode(root.right!, code + '1');
     }
     print() {
         try {
@@ -74,5 +74,5 @@ class Huffman {
 }
 
 let HT = new Huffman(raw);
+setTimeout(() => { HT.decode() }, 2000);
 HT.print();
-HT.decode();
